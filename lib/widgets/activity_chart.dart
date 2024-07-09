@@ -1,55 +1,56 @@
+import 'package:fitness_track_x/models/activity.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../models/activity.dart';
 
 class ActivityChart extends StatelessWidget {
   final List<Activity> activities;
 
-  ActivityChart(this.activities);
+  ActivityChart({required this.activities});
 
   @override
   Widget build(BuildContext context) {
-    List<BarChartGroupData> barGroups = activities.map((activity) {
-      return BarChartGroupData(
-        x: activities.indexOf(activity),
-        barRods: [
-          BarChartRodData(
-            toY: activity.duration.toDouble(),
-            color: Colors.blue,
-          ),
-        ],
-      );
-    }).toList();
-
-    return BarChart(
-      BarChartData(
-        alignment: BarChartAlignment.spaceAround,
-        barGroups: barGroups,
-        borderData: FlBorderData(show: false),
-        titlesData: FlTitlesData(
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              getTitlesWidget: (double value, TitleMeta meta) {
-                int index = value.toInt();
-                if (index < activities.length) {
-                  return Text(activities[index].name);
-                }
-                return Text('');
-              },
+    return AspectRatio(
+      aspectRatio: 1.5,
+      child: BarChart(
+        BarChartData(
+          alignment: BarChartAlignment.spaceAround,
+          barGroups: _createBarGroups(),
+          titlesData: FlTitlesData(
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: true),
             ),
-          ),
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              interval: 10,
-              getTitlesWidget: (double value, TitleMeta meta) {
-                return Text('${value.toInt()} min');
-              },
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                getTitlesWidget: (double value, TitleMeta meta) {
+                  final index = value.toInt();
+                  if (index >= 0 && index < activities.length) {
+                    return Text(activities[index].name);
+                  } else {
+                    return Text('');
+                  }
+                },
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  List<BarChartGroupData> _createBarGroups() {
+    return activities.asMap().entries.map((entry) {
+      int index = entry.key;
+      Activity activity = entry.value;
+      return BarChartGroupData(
+        x: index,
+        barRods: [
+          BarChartRodData(
+            toY: activity.value.toDouble(),
+            color: Colors.blue,
+          ),
+        ],
+      );
+    }).toList();
   }
 }

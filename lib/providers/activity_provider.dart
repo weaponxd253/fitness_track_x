@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../models/activity.dart';
 
 class ActivityProvider with ChangeNotifier {
-  List<Activity> _activities = [];
+  final List<Activity> _activities = [];
 
   List<Activity> get activities => _activities;
 
