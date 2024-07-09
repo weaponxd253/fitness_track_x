@@ -16,7 +16,14 @@ class ActivityScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              Navigator.of(context).pushNamed(NewWorkoutScreen.routeName);
+              Navigator.of(context).pushNamed(NewWorkoutScreen.routeName).then((result) {
+                if (result != null && result == 'added') {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('New workout added!'),
+                    backgroundColor: Colors.green,
+                  ));
+                }
+              });
             },
           ),
         ],
