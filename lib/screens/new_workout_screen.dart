@@ -1,9 +1,9 @@
-import 'package:fitness_track_x/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../providers/activity_provider.dart';
 import '../models/activity.dart';
+import '../widgets/custom_button.dart';  // Import the custom button
 
 class NewWorkoutScreen extends StatefulWidget {
   static const routeName = '/new-workout';

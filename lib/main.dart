@@ -6,6 +6,7 @@ import 'screens/activity_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/new_workout_screen.dart';
+import 'themes.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,8 +24,8 @@ class MyApp extends StatelessWidget {
         builder: (context, themeProvider, child) {
           return MaterialApp(
             title: 'My App',
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
+            theme: lightTheme,
+            darkTheme: darkTheme,
             themeMode: themeProvider.themeMode,
             home: HomeScreen(),
             routes: {
